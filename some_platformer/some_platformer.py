@@ -2,15 +2,8 @@ import pygame
 import constants
 import levels
 from player import Player
-
-
-
-
-
-
-
-
-
+import chars
+from char_sprites import CharSprites
 
 
 
@@ -111,7 +104,7 @@ def runGame():
 
             #update items in the level
         current_level.update()
-        #coin_list.update()
+        
 
 
 

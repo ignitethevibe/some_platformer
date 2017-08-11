@@ -2,6 +2,9 @@ import pygame
 
 import constants
 import platforms
+from char_sprites import CharSprites
+import chars
+
 
 class Level():
     # generic super class used to define level
@@ -14,6 +17,8 @@ class Level():
         self.platform_list = None
         self.enemy_list = None
 
+        self.char_list = None
+
         # Background Image
         self.background = None
 
@@ -24,10 +29,13 @@ class Level():
         self.enemy_list = pygame.sprite.Group()
         self.player = player
 
+        self.char_list = pygame.sprite.Group()
+
     # update everything on this level
     def update(self):
         self.platform_list.update()
         self.enemy_list.update()
+        self.char_list.update()
 
     def draw(self, screen):
         # draw everything on this level
@@ -38,6 +46,7 @@ class Level():
 
         self.platform_list.draw(screen)
         self.enemy_list.draw(screen)
+        self.char_list.draw(screen)
 
     def shift_world(self, shift_x):
         # when the user moves left/right scroll everything
@@ -52,6 +61,8 @@ class Level():
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
 
+        for char in self.char_list:
+            char.rect.x += shift_x
 
 # Create platforms for the Level
 class Level_01(Level):
@@ -71,28 +82,35 @@ class Level_01(Level):
         level = [ [platforms.BLUE_PLATFORM_END, 535, 500],
                     [platforms.BLUE_PLATFORM_MIDDLE, 570, 500],
                     [platforms.BLUE_PLATFORM_END, 610, 500],
+                    #
                     [platforms.BLUE_PLATFORM_END, 800, 400],
                     [platforms.BLUE_PLATFORM_END, 835, 400],
                     [platforms.BLUE_PLATFORM_MIDDLE, 870, 400],
                     [platforms.BLUE_PLATFORM_END, 910, 400],
                     [platforms.BLUE_PLATFORM_END, 945, 400],
+                    #
                     [platforms.BLUE_PLATFORM_END, 1035, 500],
                     [platforms.BLUE_PLATFORM_MIDDLE, 1070, 500],
                     [platforms.BLUE_PLATFORM_END, 1105, 500],
+                    #
                     [platforms.YELLOW_BRICK, 1120, 280],
                     [platforms.YELLOW_BRICK, 1152, 280],
                     [platforms.YELLOW_BRICK, 1184, 280],
+                    #
                     [platforms.GRASS_LEFT, 1700, 240],
                     [platforms.GRASS_MIDDLE, 1730, 240],
                     [platforms.GRASS_MIDDLE, 1760, 240],
                     [platforms.GRASS_MIDDLE, 1790, 240],
                     [platforms.GRASS_RIGHT, 1820, 240],
+                    #
                     [platforms.YELLOW_BRICK, 1718, 425],
                     [platforms.YELLOW_BRICK, 1750, 425],
                     [platforms.YELLOW_BRICK, 1782, 425],
+                    #
                     [platforms.BLUE_PLATFORM_END, 1915, 185],
                     [platforms.BLUE_PLATFORM_END, 1950, 185],
                     [platforms.BLUE_PLATFORM_END, 1985, 185],
+                    #
                     [platforms.STONE, 1891, 380],
                     [platforms.STONE, 1922, 380],
                     ]
@@ -115,6 +133,13 @@ class Level_01(Level):
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
+
+        adam = CharSprites('biblefight_sprites.png', chars.adam_rising)
+        adam.rect.x = 1650
+        adam.rect.y = 565
+        adam.player = self.player
+        adam.level = self
+        self.char_list.add(adam)
 
 # add Level 2
 class Level_02(Level):
