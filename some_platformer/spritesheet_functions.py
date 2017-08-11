@@ -22,7 +22,8 @@ class SpriteSheet(object):
         image.blit(self.sprite_sheet, (0,0), (x, y, width, height))
 
         # Assuming black works as transparent color
-        image.set_colorkey(constants.pink)
+        transColor = image.get_at((0,0))
+        image.set_colorkey(transColor)
 
 
         # return the image
